@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  react-profile: 
+    container_name: react-profile
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: react-profile:latest
+    volumes:
+      - ./app:/app # ホストとコンテナのディレクトリを共有
+    working_dir: /app/react-profile
+    ports:
+      - "3030:3030" # ポートをバインド (ホスト:コンテナ)
+    environment:
+      - IDAR_UCHOKSEPOLLING=true # ファイル監視の設定 (Docker for Mac などで必要)
+      - WATCHPACK_POLLING=true
+      - PORT=3030
+    tty: true
+    stdin_open: true
+    command: ["npm", "start"]
